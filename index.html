@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="module" src="app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Daniel's library</h1>
+        </div>
+    </header>
+    <aside>
+        <div>
+            <button class="btn-add-book">
+                Add a new book
+            </button>
+        </div>
+    </aside>
+    <main>
+        <div class="title-container">
+            <h2>My current library</h2>
+        </div>
+        <div class="grid-main-content">
+            <div class="container-card" data-book-id="0">
+                <div class="container-card-header">
+                    <h3>Title</h3>
+                    <input class="card-read-checkbox" type="checkbox">
+                </div>
+                <div class="container-card-content">
+                    <span>Author</span>
+                    <span>No. pages</span>
+                    <button class="card-delete-button">Delete</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <dialog class="add-book-dialog">
+        <form action="#" method="POST">
+            <div>
+                <label for="txtTitle">Title: </label>
+                <input type="text" name="title" id="txtTitle" required/>
+            </div>
+            <div>
+                <label for="txtAuthor">Author: </label>
+                <input type="text" name="author" id="txtAuthor" required>
+            </div>
+            <div>
+                <label for="txtPages">No. pages: </label>
+                <input type="text" name="pages" id="txtPages" required>
+            </div>
+            <input type="submit"/>
+            <button>Close</button>
+        </form>
+    </dialog>
+</body>
+</html>
