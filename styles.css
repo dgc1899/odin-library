@@ -2,6 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+    --bg-color-1: #5D4037;
+    --bg-color-2: #795548;
+    --bg-color-3: #D7CCC8;
 }
 /* Start of soft reset */
 body {
@@ -36,6 +41,10 @@ body {
 }
 
 header {
+    background-color: var(--bg-color-1);
+    color: white;
+    border-bottom: 2px black;
+    box-shadow: 0 0 2px 0;
     grid-row: span 1;
     grid-column: span 2;
 
@@ -47,6 +56,13 @@ header {
 
 aside {
     grid-row: span 2;
+    background-color: var(--bg-color-2);
+}
+
+main {
+    background-color: var(--bg-color-3);
+    color: #212121;
+
 }
 
 .grid-main-content {
