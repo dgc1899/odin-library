@@ -22,6 +22,11 @@ class LibraryModel {
     get currentLibraryId() {
         return this.#myLibrary.length;
     }
+
+    set currentLibrary(newLibrary) {
+        this.#myLibrary = newLibrary;
+    }
+
 }
 
 

@@ -8,7 +8,7 @@ class BookModel {
     }
 
      set read(value) {
-        //this.read = value;
+        this._read = value;
     }
 }
 

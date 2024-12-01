@@ -9,7 +9,6 @@ class LibraryController {
         this.libraryView = libraryView;
 
         this.libraryView.bindAddBookCard(this.createNewBook.bind(this));
-        this.bookView.bindSetReadStatus(this.setBookReadStatus.bind(this));
     }
 
     createNewBook(title, author, numberPages, read) {
@@ -18,10 +17,14 @@ class LibraryController {
 
         this.libraryModel.addBook(book);
         this.updateView();
+        this.bookView.bindSetReadStatus(this.setBookReadStatus.bind(this));
     }
 
-    setBookReadStatus() {
-        
+    setBookReadStatus(bookId, value) {
+        const currentLibrary = this.libraryModel.currentLibrary;
+        currentLibrary[bookId].read = value;
+        this.libraryModel.currentLibrary = currentLibrary;
+        this.updateView();
     }
 
     deleteAllBooks() {

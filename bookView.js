@@ -1,5 +1,7 @@
 class BookView {
     constructor() {
+        this.containerMainContent = document.querySelector(".grid-main-content");
+
         this.cardContainer = document.querySelector(".container-card");
         this.cardHeader = document.querySelector(".container-card-header");
         this.cardHeaderText = document.querySelector("h3");
@@ -15,7 +17,7 @@ class BookView {
         containerCard.classList.add("container-card");
 
         containerCard.setAttribute("data-book-id", book.bookId);
-        const header = this.createCardHeader(book.title);
+        const header = this.createCardHeader(book.title, book._read);
         const content = this.createCardContent(book.author, book.numberPages);
 
         containerCard.appendChild(header);
@@ -24,14 +26,15 @@ class BookView {
         return containerCard;
     }
 
-    createCardHeader(title) {
+    createCardHeader(title, read) {
         const headerContainer = document.createElement("div");
         const headerTitle = document.createElement("h3");
         const contentReadButton = document.createElement("input");
 
         headerTitle.innerHTML = title;
         contentReadButton.setAttribute("type", "checkbox");
-        contentReadButton.addEventListener("change", this.setReadStatus);
+        contentReadButton.checked = read;
+        contentReadButton.classList.add("card-read-checkbox");
 
         headerContainer.classList.add("container-card-header");
         headerContainer.appendChild(headerTitle);
@@ -63,21 +66,28 @@ class BookView {
 
     }
 
+
+    bindSetReadStatus(handler) {
+        this.containerMainContent.addEventListener("change", (event) => {
+            if (event.target.classList.contains("card-read-checkbox")) {
+                const bookToUpdate = event.target.closest(".container-card").getAttribute("data-book-id");
+                if (event.target.checked) {
+                    handler(bookToUpdate, true);
+                }
+                else {
+                    handler(bookToUpdate, false);
+                }
+            }
+        });
+
+    }
+
     deleteCard(event) {
         const bookToRemove = event.target.closest(".container-card").getAttribute("data-book-id");
         removeBook(bookToRemove);
         event.target.closest(".container-card").remove();
     }   
 
-    bindSetReadStatus(handler) {
-        // const bookToUpdate = event.target.closest(".container-card").getAttribute("data-book-id");
-        // if (event.target.checked) {
-        //     setRead(bookToUpdate, true);
-        // }
-        // else {
-        //     setRead(bookToUpdate, false);
-        // }
-    }
 }
 
 export {BookView};

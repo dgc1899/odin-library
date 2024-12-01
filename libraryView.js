@@ -9,6 +9,8 @@ class LibraryView {
         this.addBookModalInputs = document.querySelectorAll(".add-book-dialog form>div>input");
         this.addBookModalSubmit = document.querySelector(".add-book-dialog input[type='submit']");
         this.addBookModalClose = document.querySelector(".add-book-dialog button");
+
+        //this.bookContainers = document.querySelectorAll(".container-card");
         
         this.btnAddBook.addEventListener("click", () => this.appearModal());
         this.addBookModalClose.addEventListener("click", () => this.closeModal());
@@ -35,7 +37,6 @@ class LibraryView {
             }
             bookDetails.push(false);
             handler(bookDetails[0], bookDetails[1], bookDetails[2], bookDetails[3]);
-            //addBook();
             this.addBookModal.close();
         }); 
     }
@@ -49,7 +50,6 @@ class LibraryView {
             this.containerMainContent.appendChild(bookCard);
         });
     }
-
 
     deleteCards() {
         // const contentCards = Array.from(document.querySelectorAll(".container-card"));
