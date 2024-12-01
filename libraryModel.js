@@ -1,38 +1,32 @@
-import { renderLibrary } from "./libraryView.js";
+import { LibraryView } from "./libraryView.js";
 
-let myLibrary = [];
+class LibraryModel {
+    #myLibrary = [];
 
-function Book(bookId, title, author, numberPages, read) {
-    this.bookId = bookId;
-    this.title = title;
-    this.author = author;
-    this.numberPages = numberPages;
-    this.read = read;
-}
-
-function addBook(title, author, pages, read) {
-    let bookId = myLibrary.length + 1;
-    let book = new Book(bookId, title, author, pages, read);
-    myLibrary.push(book);
-    renderLibrary(myLibrary);
-}
-
-function removeBook(bookId) {
-    for (let i = 0; i < myLibrary.length; i++) {
-        if (myLibrary[i].bookId == bookId) {
-            myLibrary.splice(i, 1);
-            console.log(myLibrary);
+    addBook(book) {
+        this.#myLibrary.push(book);
+    }
+    
+    removeBook(bookId) {
+        for (let i = 0; i < this.myLibrary.length; i++) {
+            if (this.myLibrary[i].bookId == bookId) {
+                this.myLibrary.splice(i, 1);
+            }
         }
+    }
+
+    get currentLibrary() {
+        return this.#myLibrary;
+    }
+
+    get currentLibraryId() {
+        return this.#myLibrary.length;
     }
 }
 
-function setRead(bookId, value) {
-    myLibrary.forEach(element => {
-        if (element.bookId == bookId) {
-            element.read = value;
-        }
-    });
-}
 
-export {};
+
+
+
+export {LibraryModel};
 

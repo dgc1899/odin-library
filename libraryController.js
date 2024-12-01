@@ -1,12 +1,36 @@
+import { LibraryModel } from "./libraryModel.js";
+import {BookModel} from "./bookModel.js";
+
 class LibraryController {
     constructor(bookModel, libraryModel, bookView, libraryView) {
         this.bookModel = bookModel;
         this.libraryModel = libraryModel;
         this.bookView = bookView;
         this.libraryView = libraryView;
+
+        this.libraryView.bindAddBookCard(this.createNewBook.bind(this));
+        this.bookView.bindSetReadStatus(this.setBookReadStatus.bind(this));
     }
 
-    createNewBook() {
+    createNewBook(title, author, numberPages, read) {
+        const book = new BookModel(this.libraryModel.currentLibraryId, title, author, numberPages, read);
+        const bookCard = this.bookView.createBookCard(book);
+
+        this.libraryModel.addBook(book);
+        this.updateView();
+    }
+
+    setBookReadStatus() {
         
     }
+
+    deleteAllBooks() {
+
+    }
+
+    updateView() {
+        this.libraryView.renderLibrary(this.libraryModel.currentLibrary);
+    }
 }
+
+export {LibraryController};

@@ -1,52 +1,52 @@
-import {addBook, removeBook, setRead, myLibrary} from "./libraryModel.js"; 
+import {LibraryModel} from "./libraryModel.js"; 
+import { BookView } from "./bookView.js";
 
 class LibraryView {
     constructor() {
-        const containerMainContent = document.querySelector(".grid-main-content");
-        const btnAddBook = document.querySelector(".btn-add-book");
+        this.containerMainContent = document.querySelector(".grid-main-content");
+        this.btnAddBook = document.querySelector(".btn-add-book");
+        this.addBookModal = document.querySelector(".add-book-dialog");
+        this.addBookModalInputs = document.querySelectorAll(".add-book-dialog form>div>input");
+        this.addBookModalSubmit = document.querySelector(".add-book-dialog input[type='submit']");
+        this.addBookModalClose = document.querySelector(".add-book-dialog button");
         
-        const addBookModal = document.querySelector(".add-book-dialog");
-        const addBookModalInputs = document.querySelectorAll(".add-book-dialog form>div>input");
-        const addBookModalSubmit = document.querySelector(".add-book-dialog input[type='submit']");
-        const addBookModalClose = document.querySelector(".add-book-dialog button");
-        const deleteCardButton = document.querySelector(".card-delete-button");
+        this.btnAddBook.addEventListener("click", () => this.appearModal());
+        this.addBookModalClose.addEventListener("click", () => this.closeModal());
         
     }
 
-
-    showModal() {
-        btnAddBook.addEventListener("click", () => {
-        addBookModal.showModal();
-        });
+    appearModal() {
+        this.addBookModal.showModal();
     }
 
     closeModal(event) {
-        addBookModalClose.addEventListener("click", () => {
-            event.preventDefault();
-            addBookModal.close();
-        });
+        event.preventDefault();
+        this.addBookModal.close();
     }
 
-    addBookCard() {
-    addBookModalSubmit.addEventListener("click", event => {
-        let bookDetails = [];
+    bindAddBookCard(handler) {
+        this.addBookModalSubmit.addEventListener("click",(event) => {
+            let bookDetails = [];
 
-        event.preventDefault();
-
-        for (const element of addBookModalInputs) {
-            bookDetails.push(element.value);
-        }
-        bookDetails.push(false);
-        addBook(bookDetails[0], bookDetails[1], bookDetails[2], bookDetails[3]);
-        addBookModal.close();
-    });  
+            event.preventDefault();
+    
+            for (const element of this.addBookModalInputs) {
+                bookDetails.push(element.value);
+            }
+            bookDetails.push(false);
+            handler(bookDetails[0], bookDetails[1], bookDetails[2], bookDetails[3]);
+            //addBook();
+            this.addBookModal.close();
+        }); 
     }
 
 
     renderLibrary(library) {
-        deleteCards();
+        this.containerMainContent.innerHTML = '';
         library.forEach(book => {
-            createCard(book);
+            const bookView = new BookView();
+            const bookCard = bookView.createBookCard(book);
+            this.containerMainContent.appendChild(bookCard);
         });
     }
 
@@ -56,7 +56,7 @@ class LibraryView {
         // contentCards.forEach(element => {
         //     element.remove();
         // });
-        containerMainContent.innerHTML = "";
+        this.containerMainContent.innerHTML = "";
     }
 }
 

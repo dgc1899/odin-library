@@ -1,28 +1,27 @@
 class BookView {
     constructor() {
-        const cardContainer = document.querySelector(".container-card");
-
-        const cardHeader = document.querySelector(".container-card-header");
-        const cardHeaderText = document.querySelector("h3");
-        const cardHeaderCheckBox = document.querySelector(".card-read-checkbox");
-
-        const cardContent = document.querySelector(".container-card-content");
-        const cardContentAuthor = document.querySelector(".container-card-content>span:nth-of-type(1)");
-        const cardContentPages = document.querySelector(".container-card-content>span:nth-of-type(2)")
-        const cardContentDeleteButton = document.querySelector(".card-delete-button");
+        this.cardContainer = document.querySelector(".container-card");
+        this.cardHeader = document.querySelector(".container-card-header");
+        this.cardHeaderText = document.querySelector("h3");
+        this.cardHeaderCheckBox = document.querySelector(".card-read-checkbox");
+        this.cardContent = document.querySelector(".container-card-content");
+        this.cardContentAuthor = document.querySelector(".container-card-content>span:nth-of-type(1)");
+        this.cardContentPages = document.querySelector(".container-card-content>span:nth-of-type(2)")
+        this.cardContentDeleteButton = document.querySelector(".card-delete-button");
     }
 
-    createCard(book) {
+    createBookCard(book) {
         const containerCard = document.createElement("div");
         containerCard.classList.add("container-card");
 
         containerCard.setAttribute("data-book-id", book.bookId);
-        const header = createCardHeader(book.title);
-        const content = createCardContent(book.author, book.numberPages);
+        const header = this.createCardHeader(book.title);
+        const content = this.createCardContent(book.author, book.numberPages);
 
         containerCard.appendChild(header);
         containerCard.appendChild(content);
-        containerMainContent.appendChild(containerCard);
+
+        return containerCard;
     }
 
     createCardHeader(title) {
@@ -32,7 +31,7 @@ class BookView {
 
         headerTitle.innerHTML = title;
         contentReadButton.setAttribute("type", "checkbox");
-        contentReadButton.addEventListener("change", setReadStatus);
+        contentReadButton.addEventListener("change", this.setReadStatus);
 
         headerContainer.classList.add("container-card-header");
         headerContainer.appendChild(headerTitle);
@@ -54,7 +53,7 @@ class BookView {
         contentContainer.classList.add("container-card-content");
         contentDeleteButton.classList.add("card-delete-button");
 
-        contentDeleteButton.addEventListener("click", deleteCard);
+        //contentDeleteButton.addEventListener("click", deleteCard);
 
         contentContainer.appendChild(contentAuthor);
         contentContainer.appendChild(contentPages);
@@ -70,13 +69,15 @@ class BookView {
         event.target.closest(".container-card").remove();
     }   
 
-    setReadStatus(event) {
-        const bookToUpdate = event.target.closest(".container-card").getAttribute("data-book-id");
-        if (event.target.checked) {
-            setRead(bookToUpdate, true);
-        }
-        else {
-            setRead(bookToUpdate, false);
-        }
+    bindSetReadStatus(handler) {
+        // const bookToUpdate = event.target.closest(".container-card").getAttribute("data-book-id");
+        // if (event.target.checked) {
+        //     setRead(bookToUpdate, true);
+        // }
+        // else {
+        //     setRead(bookToUpdate, false);
+        // }
     }
 }
+
+export {BookView};
