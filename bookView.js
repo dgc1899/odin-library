@@ -82,10 +82,17 @@ class BookView {
 
     }
 
-    deleteCard(event) {
-        const bookToRemove = event.target.closest(".container-card").getAttribute("data-book-id");
-        removeBook(bookToRemove);
-        event.target.closest(".container-card").remove();
+    bindDeleteCard(handler) {
+        this.containerMainContent.addEventListener("click", (event) => {
+            const deleteButtons = Array.from(document.querySelectorAll(".card-delete-button"));
+            deleteButtons.forEach(button => {
+                if (event.target.classList.contains("card-delete-button")) {
+                    const bookToRemove = event.target.closest(".container-card").getAttribute("data-book-id");
+                    handler(bookToRemove);
+                }
+            });
+        })
+        
     }   
 
 }

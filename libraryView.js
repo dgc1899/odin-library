@@ -50,14 +50,6 @@ class LibraryView {
             this.containerMainContent.appendChild(bookCard);
         });
     }
-
-    deleteCards() {
-        // const contentCards = Array.from(document.querySelectorAll(".container-card"));
-        // contentCards.forEach(element => {
-        //     element.remove();
-        // });
-        this.containerMainContent.innerHTML = "";
-    }
 }
 
 export {LibraryView};

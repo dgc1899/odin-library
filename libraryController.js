@@ -18,6 +18,7 @@ class LibraryController {
         this.libraryModel.addBook(book);
         this.updateView();
         this.bookView.bindSetReadStatus(this.setBookReadStatus.bind(this));
+        this.bookView.bindDeleteCard(this.deleteBook.bind(this));
     }
 
     setBookReadStatus(bookId, value) {
@@ -27,8 +28,9 @@ class LibraryController {
         this.updateView();
     }
 
-    deleteAllBooks() {
-
+    deleteBook(bookId) {
+        this.libraryModel.removeBook(bookId);
+        this.updateView();
     }
 
     updateView() {

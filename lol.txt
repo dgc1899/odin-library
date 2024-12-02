@@ -1,0 +1,88 @@
+diff --git a/bookView.js b/bookView.js
+index 2fcd475..867d655 100644
+--- a/bookView.js
++++ b/bookView.js
+@@ -56,8 +56,6 @@ class BookView {
+         contentContainer.classList.add("container-card-content");
+         contentDeleteButton.classList.add("card-delete-button");
+ 
+-        //contentDeleteButton.addEventListener("click", deleteCard);
+-
+         contentContainer.appendChild(contentAuthor);
+         contentContainer.appendChild(contentPages);
+         contentContainer.appendChild(contentDeleteButton);
+@@ -82,10 +80,11 @@ class BookView {
+ 
+     }
+ 
+-    deleteCard(event) {
+-        const bookToRemove = event.target.closest(".container-card").getAttribute("data-book-id");
+-        removeBook(bookToRemove);
+-        event.target.closest(".container-card").remove();
++    bindDeleteCard(handler) {
++        this.cardContentDeleteButton.addEventListener("click", (event) => {
++            const bookToRemove = event.target.closest(".container-card").getAttribute("data-book-id");
++            handler(bookToRemove);
++        })
+     }   
+ 
+ }
+diff --git a/libraryController.js b/libraryController.js
+index 43ad21b..d8b6ead 100644
+--- a/libraryController.js
++++ b/libraryController.js
+@@ -18,6 +18,7 @@ class LibraryController {
+         this.libraryModel.addBook(book);
+         this.updateView();
+         this.bookView.bindSetReadStatus(this.setBookReadStatus.bind(this));
++        //this.bookView.bindDeleteCard(this.deleteBook.bind(this));
+     }
+ 
+     setBookReadStatus(bookId, value) {
+@@ -27,12 +28,13 @@ class LibraryController {
+         this.updateView();
+     }
+ 
+-    deleteAllBooks() {
+-
+-    }
++    // deleteBook(bookId) {
++    //     this.libraryModel.removeBook(bookId);
++    // }
+ 
+     updateView() {
+         this.libraryView.renderLibrary(this.libraryModel.currentLibrary);
++        this.updateView();
+     }
+ }
+ 
+diff --git a/libraryModel.js b/libraryModel.js
+index 4a36f27..c7a12a8 100644
+--- a/libraryModel.js
++++ b/libraryModel.js
+@@ -8,9 +8,9 @@ class LibraryModel {
+     }
+     
+     removeBook(bookId) {
+-        for (let i = 0; i < this.myLibrary.length; i++) {
+-            if (this.myLibrary[i].bookId == bookId) {
+-                this.myLibrary.splice(i, 1);
++        for (let i = 0; i < this.#myLibrary.length; i++) {
++            if (this.#myLibrary[i].bookId == bookId) {
++                this.#myLibrary.splice(i, 1);
+             }
+         }
+     }
+diff --git a/libraryView.js b/libraryView.js
+index a730406..c3d6c72 100644
+--- a/libraryView.js
++++ b/libraryView.js
+@@ -51,7 +51,7 @@ class LibraryView {
+         });
+     }
+ 
+-    deleteCards() {
++    deleteCard() {
+         // const contentCards = Array.from(document.querySelectorAll(".container-card"));
+         // contentCards.forEach(element => {
+         //     element.remove();

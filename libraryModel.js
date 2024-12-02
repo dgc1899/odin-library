@@ -8,9 +8,9 @@ class LibraryModel {
     }
     
     removeBook(bookId) {
-        for (let i = 0; i < this.myLibrary.length; i++) {
-            if (this.myLibrary[i].bookId == bookId) {
-                this.myLibrary.splice(i, 1);
+        for (let i = 0; i < this.#myLibrary.length; i++) {
+            if (this.#myLibrary[i].bookId == bookId) {
+                this.#myLibrary.splice(i, 1);
             }
         }
     }
@@ -28,10 +28,6 @@ class LibraryModel {
     }
 
 }
-
-
-
-
 
 export {LibraryModel};
 
